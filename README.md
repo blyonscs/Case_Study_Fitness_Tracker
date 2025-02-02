@@ -14,22 +14,22 @@ the world. Collecting data on activity, sleep, stress, and reproductive health h
 
 ##### Steps of The Analysis Process
 
-* Ask
+* [Ask](#ask)
 What is the problem we are trying to solve or what are the insights that we want figure out?
 
-* Perpare 
+* [Prepare](#perpare) 
 What datatables are we using from the zipped file? What programs and languages are we using? What are the datatypes and are they formatted correctly?
 
-* Process
+* [Process](#process)
 Are there duplicate or NULL value rows? Are datatypes like dates and strings represented correctly and are the ordinal and discrete values correct? Are there any obvious mistakes to any of the datacells?
 
-* Analyze
+* [Analyze](#analyze)
 In what ways can we use the data to gain insight into the questions being asked by the stakeholders? Are there any new attributes that we can make to help answer the questions. How can we filter and sort the data to find interesting subdata?
 
-* Share
+* [Share](#share)
 What graphs and dashboards can be made to answer the stakeholder questions? 
 
-* Act
+* [Act](#act)
 What are the recommendations that are pertinate to the questions being asked and how can they help the company?
 
 
@@ -43,13 +43,12 @@ Stakeholder questions to be answered
 2. How can these trends apply to Bellabeat customers?
 3. How could these trends help influence Bellabeat marketing strategy?
 
-For this project it is recommended to select one of Bellabeats products to apply the analytics to for the final presentation of your findings, I will choose the Leaf product. It is Bellabeats classic wellness tracker that can be worn as a bracelet, necklace or clip and tracks activity, sleep and stress.
+For this project it is recommended to select one of Bellabeats products to apply the analytics to for the final recommendations, I will choose the Leaf product. It is Bellabeats classic wellness tracker that can be worn as a bracelet, necklace or clip and tracks activity, sleep and stress.
 
-For the final presentation I will be assuming that it is for the top managers and officersin the company so it will not be very technical and cluttered, but will still present the main points of my findings
 
-## Perpare
+## Prepare
 
-This dataset comes with 29 datatables, but I will only be working with 3 of them in this project as so of them are redundent and I will only be working with the daily data for now
+This dataset comes with 29 datatables, but I will only be working with 3 of them in this project because some of them are redundent and I will only be working with the daily data for now
 
 ##### Metadata
 * dailyActivity_merged first and second month
@@ -70,7 +69,7 @@ All data is stored in csv files that are not too big and can be accessed in both
 
 The data intergrity of these datatables is not that good because having less than a thousand rows in each datatable is not ideal when trying to get complex insights from it and is prone to bias. Especially because this data comes from less than 40 people and to get insights confidently it would be much better to have alot more people and over more time.
 
-###### Data Types
+##### Data Types
 daily_Activity_Consolidated
 
 * Primary Key: Id
@@ -144,13 +143,29 @@ Secondly, I noticed that SedentaryActiveDistance was most of the time 0 and the 
 
 Lastly SleepDay in the daily_Sleep table had time values as well as the date even though the times were always zero. I removed the time in the number formatting options.
 
+![Removing Sleep Time](Images/Removing_Time.png)
+
 ##### Cleaning Data
 
-1. For each table I used CONCAT to put the Id and Date in the same column and removed any duplicates that showed up, 24 duplicates were removed in the daily_activity_Consolidated, I didnt remove any in the sleep data because even though there are duplicates a person can have multipe sleep records for one day.
+1. For each table I used CONCAT to put the Id and Date in the same column and removed any duplicates that showed up. First I used conditional formatting to check if there were duplicates and had the same values in all the rows.
 
-2. Next I checked for any NULL values in the Id and Date columns for both of the tables by using filter to see if any NULLs show up. None did, but it is still very important to check to see.
+![Duplicate Condition](Images/Conditional_Dup.png)
 
-3. Lastly, I checked if any of the distance or minutes columns had negitive values that should not have been there, none showed up in this step either, but checking for irrelevent and wrong data is also very important.
+There were and they had the same values in the rows so I just removed extra ones.
+
+![Removing Duplicates](Images/Remove_Dup.png)
+
+24 duplicates were removed in the daily_activity_Consolidated and 3 in the daily sleep data
+
+2. Next I checked for any NULL values in the Id, Date and key number columns for both of the tables by using filter to see if any NULLs show up. None did, but it is still very important to check to see.
+
+![Check NULL](Images/Check_Null.png)
+
+
+3. Lastly, I checked if any of the distance or minutes columns had NULL or negitive values that should not have been there, none showed up in this step either, but checking for irrelevent and wrong data is also very important.
+
+
+![Check NULL Numbers](Images/Check_Null_Num.png)
 
 ## Analyze
 
@@ -162,9 +177,13 @@ My first instinct for the analyze phase was to make some pivot tables to underst
 
 ###### Number of Steps, Distance and Calories By Id and Date: Daily Activity
 
+![Activity Pivot Tables](Images/Activity_Pivot.png)
+
 As you can see from the tables there are a good amount of blank values espesially in the month of March
 
 ##### Number of Sleep Records, Minutes Asleep and Time in Bed By Id and Date: Daily Sleep
+
+![Sleep Pivot Tables](Images/Sleep_Pivot.png)
 
 There are less blank values for these months because there is no March values.
 
@@ -174,6 +193,10 @@ There are less blank values for these months because there is no March values.
 I then used these pivot tables to calculate averages for each Id based on the information in the pivot tables and total the total average. Next I used MIN and MAX to find the Id outliers in the data.
 
 The Daily activity calculations I recived were very interesting because although the number of steps and distance were very closly related, the amount of calories burned seemed to have very little corilation to the amount of step and distance that the user had. This may be accurate and you may burn moderatly more calories being active, but it doesnt promote fitness and activity much because the calories didnt change that much by walking or running.
+
+![Activity Calculations](Images/Activity_Cal.png)
+
+![Sleep Calculations](Images/Sleep_Cal.png)
 
 ### SQL with Bigquery
 
@@ -287,6 +310,8 @@ FROM Daily_Activity
 GROUP BY ActivityDate
 ORDER BY AvgCal DESC;
 ```
+![SQL Calories Calculations](Images/Calories_Sql.png)
+
 The average calories per day has little to do with the total calories burned that day. It seems as though a couple very active people started the tracking before everyone else and those are the highest days.
 
 4. How big of a difference is TotalDistance and TrackerDistance?
@@ -338,6 +363,9 @@ WHERE TotalSteps > 10000
 GROUP BY Id
 ORDER BY Days_Over_10000 DESC;
 ```
+
+![Number of Days With 10,000 Steps](Images/Num_10000_Steps.png)
+
 Some people seemed to regularly get over 10,000 steps while 7 had just 4 or less days.
 
 ###### Joining the Daily_Activity and Daily_sleep tables
@@ -372,7 +400,7 @@ GROUP BY Id
 HAVING VeryActAvg > 0) 
 ```
 
-Avg slepp of people that have a very active distance of more than 0 = 387.3085
+Avg sleep of people that have a very active distance of more than 0 = 387.0554
 
 Switch > to =
 
@@ -394,7 +422,7 @@ LIMIT 5)
 
 ```
 Most calories burned top 5
-AvgSleep = 373.89
+AvgSleep = 373.66
 
 Lest calories burned top 5
 AvgSleep = 374.62
@@ -403,8 +431,19 @@ The people with the most and lest calories burned have about the same average sl
 
 ## Share
 
-For the visuals I used Tableau the make a dashborad for both the daily activity and the daily activity and sleep.
+For the visuals I used Tableau the make a dashboard for both the daily activity and the daily activity and sleep.
 
+##### Daily Activity Dashboard
+
+![Activity Dashboard](Images/Activity_Dash.png)
+
+##### Daily Activity and Sleep Dashboard
+
+![Sleep Dashboard](Images/Sleep_Dash.png)
+
+Check them out on my Tableau to see the dynamic features
+
+[My Tableau](https://public.tableau.com/app/profile/brandon.lyons/vizzes)
 
 ## Act
 
@@ -415,3 +454,5 @@ Key insights I uncovered throughout my analysis
 2. Distance and steps for each day cause an increase in calories burned, but less active people could still burn many calories because there are many factors to how many calories an individual person burns. That is why having small alerts/notifications to let the person know that they are being more active and burning more calories can help in increasing overall health and wellness and will give more modivation to the user.
 
 3. Users spent 8.5% of their time in bed not sleeping which over time can add many sedintary minutes, so adding a way to encourage the user to start/end the day whether it is a notification or even a timer to show the user the time they spend not sleeping in bed can help them not to have habits like that.
+
+###### Thank You for Checking Out My Fitnees Project, Other Projects Are on My GitHub!
