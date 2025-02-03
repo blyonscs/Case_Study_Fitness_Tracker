@@ -103,7 +103,7 @@ All combinations of Id and the day should be unique for both tables.
 
 ## Process
 
-I will be using both Excel and SQL for the data cleaning and analysis steps and making static visualizations in Excel and dynamic dashboard in Tableau
+I will be using both Excel and SQL for the data cleaning and analysis steps and making static visualizations in Excel, R and dynamic dashboard in Tableau
 
 1. Excel Workbook
 First I added all the files into a workbook in excel to work with them in one setting.
