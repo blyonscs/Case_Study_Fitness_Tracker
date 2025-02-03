@@ -431,7 +431,7 @@ The people with the most and lest calories burned have about the same average sl
 
 ## Share
 
-For the visuals I used Tableau the make a dashboard for both the daily activity and the daily activity and sleep.
+For the visuals I used Tableau and R the make a dashboard for both the daily activity and the daily activity and sleep.
 
 ##### Daily Activity Dashboard
 
@@ -444,6 +444,10 @@ For the visuals I used Tableau the make a dashboard for both the daily activity 
 Check them out on my Tableau to see the dynamic features
 
 [My Tableau](https://public.tableau.com/app/profile/brandon.lyons/vizzes)
+
+I made some interesting graphs in R as well
+
+[R Visualizations](https://www.kaggle.com/code/brandonlyons888/fitness-tracker-analysis)
 
 ## Act
 
