@@ -5,7 +5,7 @@
 ##### Background
 
 *Personal*
-Hello everyone! My name is Brandon and I'm a computer science graduate from Florida Atlantic University. Fitness is a big part of my day to day life and I found this dataset very interesting to work with and analyze. I had fun manipulating and visualizing this data and working through the steps of the data analysis process, follow me on Linkedin - https://www.linkedin.com/in/brandon-lyons-8b6b04158
+Hello everyone! My name is Brandon and I'm a computer science graduate from Florida Atlantic University. Fitness is a big part of my day-to-day life and I found this dataset very interesting to work with and analyze. I had fun manipulating and visualizing this data and working through the steps of the data analysis process, follow me on Linkedin - [My Linkedin](https://www.linkedin.com/in/brandon-lyons-8b6b04158)
 
 *Project Business*
 Urška Sršen and Sando Mur founded Bellabeat, a high-tech company that manufactures health-focused smart products. Sršen used her background as an artist to develop beautifully designed technology that informs and inspires women around
